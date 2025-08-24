@@ -25,7 +25,12 @@ const CareerExplorer = () => {
       courses: ['Web Development Bootcamp', 'Python Programming', 'JavaScript Fundamentals'],
       certifications: ['AWS Certified Developer', 'Microsoft Azure Developer'],
       duration: '6-12 months',
-      location: 'Worldwide'
+      location: 'Worldwide',
+      salaryRange: { entry: '$60K-$80K', mid: '$80K-$120K', senior: '$120K-$180K', executive: '$180K+' },
+      internationalOpportunities: ['USA', 'Canada', 'UK', 'Germany', 'Australia', 'Singapore'],
+      advancementPaths: ['Tech Lead', 'Engineering Manager', 'CTO', 'Startup Founder'],
+      workLifeBalance: 'Good',
+      successMetrics: ['High demand globally', 'Remote work opportunities', 'Continuous learning', 'High earning potential']
     },
     {
       title: 'Data Science',
@@ -37,7 +42,12 @@ const CareerExplorer = () => {
       courses: ['Data Science Specialization', 'Machine Learning A-Z', 'Python for Data Analysis'],
       certifications: ['IBM Data Science Professional', 'Google Data Analytics'],
       duration: '8-15 months',
-      location: 'Worldwide'
+      location: 'Worldwide',
+      salaryRange: { entry: '$70K-$90K', mid: '$90K-$130K', senior: '$130K-$200K', executive: '$200K+' },
+      internationalOpportunities: ['USA', 'Canada', 'UK', 'Netherlands', 'Switzerland', 'Japan'],
+      advancementPaths: ['Senior Data Scientist', 'Data Science Manager', 'Chief Data Officer', 'AI Research Lead'],
+      workLifeBalance: 'Good',
+      successMetrics: ['High demand in all industries', 'Remote work friendly', 'High salary potential', 'Global opportunities']
     },
     {
       title: 'UI/UX Design',
@@ -49,7 +59,12 @@ const CareerExplorer = () => {
       courses: ['UI/UX Design Bootcamp', 'Figma Masterclass', 'Design Thinking'],
       certifications: ['Google UX Design', 'Adobe Creative Suite'],
       duration: '4-8 months',
-      location: 'Worldwide'
+      location: 'Worldwide',
+      salaryRange: { entry: '$50K-$70K', mid: '$70K-$100K', senior: '$100K-$150K', executive: '$150K+' },
+      internationalOpportunities: ['USA', 'Canada', 'UK', 'Germany', 'Australia', 'Netherlands'],
+      advancementPaths: ['Senior Designer', 'Design Manager', 'Creative Director', 'Design Consultant'],
+      workLifeBalance: 'Excellent',
+      successMetrics: ['Creative fulfillment', 'Remote work opportunities', 'Freelance potential', 'Global demand']
     },
     // Healthcare
     {
@@ -62,7 +77,12 @@ const CareerExplorer = () => {
       courses: ['Medical Terminology', 'Patient Communication', 'Healthcare Ethics'],
       certifications: ['Basic Life Support (BLS)', 'Advanced Cardiac Life Support (ACLS)'],
       duration: '5-8 years',
-      location: 'Worldwide'
+      location: 'Worldwide',
+      salaryRange: { entry: '$200K-$250K', mid: '$250K-$350K', senior: '$350K-$500K', executive: '$500K+' },
+      internationalOpportunities: ['USA', 'Canada', 'UK', 'Australia', 'New Zealand', 'UAE'],
+      advancementPaths: ['Specialist Physician', 'Medical Director', 'Healthcare Administrator', 'Medical Researcher'],
+      workLifeBalance: 'Challenging',
+      successMetrics: ['High salary potential', 'Job security', 'Global demand', 'Professional respect']
     },
     {
       title: 'Nursing',
@@ -74,7 +94,12 @@ const CareerExplorer = () => {
       courses: ['Nursing Fundamentals', 'Patient Assessment', 'Medical-Surgical Nursing'],
       certifications: ['Registered Nurse (RN)', 'Certified Nursing Assistant (CNA)'],
       duration: '2-4 years',
-      location: 'Worldwide'
+      location: 'Worldwide',
+      salaryRange: { entry: '$50K-$70K', mid: '$70K-$90K', senior: '$90K-$120K', executive: '$120K+' },
+      internationalOpportunities: ['USA', 'Canada', 'UK', 'Australia', 'New Zealand', 'Germany'],
+      advancementPaths: ['Nurse Practitioner', 'Nurse Manager', 'Clinical Nurse Specialist', 'Nurse Educator'],
+      workLifeBalance: 'Moderate',
+      successMetrics: ['High demand globally', 'Job security', 'Flexible schedules', 'Career advancement']
     },
     // Business
     {
@@ -87,7 +112,12 @@ const CareerExplorer = () => {
       courses: ['Business Analysis Fundamentals', 'Process Modeling', 'Requirements Gathering'],
       certifications: ['CBAP (Certified Business Analysis Professional)', 'PMP'],
       duration: '6-12 months',
-      location: 'Worldwide'
+      location: 'Worldwide',
+      salaryRange: { entry: '$60K-$80K', mid: '$80K-$110K', senior: '$110K-$150K', executive: '$150K+' },
+      internationalOpportunities: ['USA', 'Canada', 'UK', 'Australia', 'Germany', 'Singapore'],
+      advancementPaths: ['Senior Business Analyst', 'Business Analysis Manager', 'Strategy Consultant', 'Product Manager'],
+      workLifeBalance: 'Good',
+      successMetrics: ['High demand', 'Good salary progression', 'Remote work opportunities', 'Career flexibility']
     },
     {
       title: 'Financial Planning',
@@ -99,7 +129,12 @@ const CareerExplorer = () => {
       courses: ['Financial Planning Fundamentals', 'Investment Analysis', 'Tax Planning'],
       certifications: ['CFP (Certified Financial Planner)', 'Chartered Financial Analyst (CFA)'],
       duration: '1-3 years',
-      location: 'Worldwide'
+      location: 'Worldwide',
+      salaryRange: { entry: '$50K-$70K', mid: '$70K-$100K', senior: '$100K-$150K', executive: '$150K+' },
+      internationalOpportunities: ['USA', 'Canada', 'UK', 'Australia', 'Singapore', 'Switzerland'],
+      advancementPaths: ['Senior Financial Planner', 'Wealth Manager', 'Financial Director', 'Financial Consultant'],
+      workLifeBalance: 'Good',
+      successMetrics: ['High earning potential', 'Client relationships', 'Flexible work', 'Global opportunities']
     },
     // Engineering
     {
@@ -112,7 +147,12 @@ const CareerExplorer = () => {
       courses: ['Engineering Fundamentals', 'CAD/CAM Design', 'Thermodynamics'],
       certifications: ['Professional Engineer (PE)', 'SolidWorks Certification'],
       duration: '4-6 years',
-      location: 'Worldwide'
+      location: 'Worldwide',
+      salaryRange: { entry: '$60K-$80K', mid: '$80K-$110K', senior: '$110K-$150K', executive: '$150K+' },
+      internationalOpportunities: ['USA', 'Canada', 'UK', 'Germany', 'Australia', 'Japan'],
+      advancementPaths: ['Senior Engineer', 'Engineering Manager', 'Technical Director', 'Engineering Consultant'],
+      workLifeBalance: 'Good',
+      successMetrics: ['Stable career', 'Good salary', 'Global opportunities', 'Innovation potential']
     },
     {
       title: 'Civil Engineering',
@@ -124,7 +164,12 @@ const CareerExplorer = () => {
       courses: ['Structural Engineering', 'Construction Management', 'Environmental Engineering'],
       certifications: ['Professional Engineer (PE)', 'LEED Certification'],
       duration: '4-6 years',
-      location: 'Worldwide'
+      location: 'Worldwide',
+      salaryRange: { entry: '$55K-$75K', mid: '$75K-$100K', senior: '$100K-$140K', executive: '$140K+' },
+      internationalOpportunities: ['USA', 'Canada', 'UK', 'Australia', 'Germany', 'UAE'],
+      advancementPaths: ['Senior Engineer', 'Project Manager', 'Engineering Director', 'Engineering Consultant'],
+      workLifeBalance: 'Moderate',
+      successMetrics: ['Job security', 'Infrastructure impact', 'Global projects', 'Professional growth']
     },
     // Education
     {
@@ -137,7 +182,12 @@ const CareerExplorer = () => {
       courses: ['Teaching Methods', 'Classroom Management', 'Educational Psychology'],
       certifications: ['Teaching License', 'TESOL Certification'],
       duration: '2-4 years',
-      location: 'Worldwide'
+      location: 'Worldwide',
+      salaryRange: { entry: '$40K-$50K', mid: '$50K-$70K', senior: '$70K-$90K', executive: '$90K+' },
+      internationalOpportunities: ['USA', 'Canada', 'UK', 'Australia', 'New Zealand', 'UAE'],
+      advancementPaths: ['Department Head', 'Principal', 'Educational Administrator', 'Educational Consultant'],
+      workLifeBalance: 'Excellent',
+      successMetrics: ['Job security', 'Summer breaks', 'Impact on students', 'Global opportunities']
     },
     {
       title: 'Educational Technology',
@@ -149,7 +199,12 @@ const CareerExplorer = () => {
       courses: ['Educational Technology', 'Instructional Design', 'Learning Management Systems'],
       certifications: ['Google Certified Educator', 'Microsoft Certified Educator'],
       duration: '6-12 months',
-      location: 'Worldwide'
+      location: 'Worldwide',
+      salaryRange: { entry: '$50K-$70K', mid: '$70K-$90K', senior: '$90K-$120K', executive: '$120K+' },
+      internationalOpportunities: ['USA', 'Canada', 'UK', 'Australia', 'Netherlands', 'Singapore'],
+      advancementPaths: ['EdTech Specialist', 'EdTech Manager', 'Learning Technology Director', 'EdTech Consultant'],
+      workLifeBalance: 'Excellent',
+      successMetrics: ['Growing field', 'Remote work opportunities', 'Innovation potential', 'Educational impact']
     },
     // Marketing
     {
@@ -162,7 +217,12 @@ const CareerExplorer = () => {
       courses: ['Digital Marketing Bootcamp', 'SEO Fundamentals', 'Social Media Marketing'],
       certifications: ['Google Digital Marketing', 'Facebook Blueprint', 'HubSpot Certification'],
       duration: '3-6 months',
-      location: 'Worldwide'
+      location: 'Worldwide',
+      salaryRange: { entry: '$40K-$60K', mid: '$60K-$90K', senior: '$90K-$130K', executive: '$130K+' },
+      internationalOpportunities: ['USA', 'Canada', 'UK', 'Australia', 'Germany', 'Netherlands'],
+      advancementPaths: ['Marketing Manager', 'Digital Marketing Director', 'Chief Marketing Officer', 'Marketing Consultant'],
+      workLifeBalance: 'Excellent',
+      successMetrics: ['Remote work friendly', 'Creative opportunities', 'High demand', 'Entrepreneurial potential']
     },
     {
       title: 'Content Creation',
@@ -174,7 +234,12 @@ const CareerExplorer = () => {
       courses: ['Content Writing', 'Video Production', 'Social Media Strategy'],
       certifications: ['Content Marketing Institute', 'Copywriting Certification'],
       duration: '2-4 months',
-      location: 'Worldwide'
+      location: 'Worldwide',
+      salaryRange: { entry: '$35K-$50K', mid: '$50K-$75K', senior: '$75K-$100K', executive: '$100K+' },
+      internationalOpportunities: ['USA', 'Canada', 'UK', 'Australia', 'Germany', 'Netherlands'],
+      advancementPaths: ['Content Manager', 'Creative Director', 'Content Strategist', 'Freelance Creator'],
+      workLifeBalance: 'Excellent',
+      successMetrics: ['Creative freedom', 'Remote work opportunities', 'Freelance potential', 'Growing demand']
     }
   ];
 
@@ -352,6 +417,32 @@ const CareerExplorer = () => {
               </div>
             </div>
 
+            {/* Success Metrics */}
+            {career.salaryRange && (
+              <div style={{ marginBottom: '1rem' }}>
+                <strong style={{ color: '#1f2937' }}>Success Metrics:</strong>
+                <div style={{ 
+                  display: 'grid', 
+                  gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', 
+                  gap: '1rem',
+                  marginTop: '0.5rem'
+                }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    <TrendingUp size={16} color="#10b981" />
+                    <span><strong>Salary:</strong> {career.salaryRange.entry} - {career.salaryRange.executive}</span>
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    <MapPin size={16} color="#3b82f6" />
+                    <span><strong>International:</strong> {career.internationalOpportunities?.length || 0} countries</span>
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    <Target size={16} color="#f59e0b" />
+                    <span><strong>Work-Life:</strong> {career.workLifeBalance}</span>
+                  </div>
+                </div>
+              </div>
+            )}
+
             <div style={{ marginBottom: '1rem' }}>
               <strong>Key Skills to Develop:</strong>
               <div className="career-tags">
@@ -360,6 +451,19 @@ const CareerExplorer = () => {
                 ))}
               </div>
             </div>
+
+            {career.advancementPaths && (
+              <div style={{ marginBottom: '1rem' }}>
+                <strong style={{ color: '#1f2937' }}>Career Advancement:</strong>
+                <div className="career-tags">
+                  {career.advancementPaths.map((path, pathIndex) => (
+                    <span key={pathIndex} className="tag" style={{ background: '#dbeafe', color: '#1e40af' }}>
+                      {path}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
 
             <div style={{ marginBottom: '1rem' }}>
               <strong>Recommended Courses:</strong>
@@ -372,7 +476,7 @@ const CareerExplorer = () => {
               </div>
             </div>
 
-            <div>
+            <div style={{ marginBottom: '1rem' }}>
               <strong>Professional Certifications:</strong>
               <div className="career-tags">
                 {career.certifications.map((cert, certIndex) => (
@@ -382,6 +486,19 @@ const CareerExplorer = () => {
                 ))}
               </div>
             </div>
+
+            {career.successMetrics && (
+              <div>
+                <strong style={{ color: '#1f2937' }}>Why Choose This Career:</strong>
+                <div className="career-tags">
+                  {career.successMetrics.map((metric, metricIndex) => (
+                    <span key={metricIndex} className="tag" style={{ background: '#f3e8ff', color: '#7c3aed' }}>
+                      {metric}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
           </motion.div>
         ))}
       </div>

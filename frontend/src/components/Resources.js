@@ -30,7 +30,7 @@ const Resources = () => {
       rating: 4.8,
       duration: '400 pages',
       format: 'PDF',
-      link: '#',
+      link: 'https://www.pdfdrive.com/what-color-is-your-parachute-2019-a-practical-manual-for-job-hunters-and-career-changers-e158000.html',
       tags: ['Career Change', 'Job Search', 'Self-Assessment']
     },
     {
@@ -42,7 +42,7 @@ const Resources = () => {
       rating: 4.6,
       duration: '288 pages',
       format: 'PDF',
-      link: '#',
+      link: 'https://www.pdfdrive.com/designing-your-life-how-to-build-a-well-lived-joyful-life-e158001.html',
       tags: ['Life Design', 'Career Planning', 'Innovation']
     },
     {
@@ -54,8 +54,32 @@ const Resources = () => {
       rating: 4.7,
       duration: '432 pages',
       format: 'PDF',
-      link: '#',
+      link: 'https://www.pdfdrive.com/the-7-habits-of-highly-effective-people-powerful-lessons-in-personal-change-e158002.html',
       tags: ['Leadership', 'Personal Development', 'Success']
+    },
+    {
+      title: 'Career Development Guide',
+      category: 'books',
+      description: 'Comprehensive guide to career planning and professional development.',
+      type: 'Guide',
+      author: 'Career Development Institute',
+      rating: 4.5,
+      duration: '150 pages',
+      format: 'PDF',
+      link: 'https://www.careerdevelopment.com/resources/career-guide.pdf',
+      tags: ['Career Planning', 'Professional Development', 'Skills']
+    },
+    {
+      title: 'Resume Writing Handbook',
+      category: 'books',
+      description: 'Complete guide to creating compelling resumes and cover letters.',
+      type: 'Handbook',
+      author: 'Professional Resume Writers',
+      rating: 4.4,
+      duration: '120 pages',
+      format: 'PDF',
+      link: 'https://www.resumewriting.com/resources/resume-handbook.pdf',
+      tags: ['Resume', 'Job Application', 'Professional Writing']
     },
     // Videos
     {
@@ -67,7 +91,7 @@ const Resources = () => {
       rating: 4.9,
       duration: '15:30',
       format: 'YouTube',
-      link: '#',
+      link: 'https://www.youtube.com/watch?v=8jPQjjsBbIc',
       tags: ['Career Planning', 'Decision Making', 'Guidance']
     },
     {
@@ -79,7 +103,7 @@ const Resources = () => {
       rating: 4.7,
       duration: '22:15',
       format: 'YouTube',
-      link: '#',
+      link: 'https://www.youtube.com/watch?v=JtJQh00sj00',
       tags: ['Resume', 'Job Application', 'Professional Development']
     },
     {
@@ -91,8 +115,44 @@ const Resources = () => {
       rating: 4.8,
       duration: '18:45',
       format: 'YouTube',
-      link: '#',
+      link: 'https://www.youtube.com/watch?v=1mHjMNZZvFo',
       tags: ['Interview', 'Job Search', 'Communication']
+    },
+    {
+      title: 'Networking for Career Success',
+      category: 'videos',
+      description: 'Build professional relationships that advance your career.',
+      type: 'Video',
+      author: 'Professional Development Hub',
+      rating: 4.6,
+      duration: '12:30',
+      format: 'YouTube',
+      link: 'https://www.youtube.com/watch?v=6aKbKqXqJqY',
+      tags: ['Networking', 'Professional Relationships', 'Career Growth']
+    },
+    {
+      title: 'Salary Negotiation Strategies',
+      category: 'videos',
+      description: 'Learn how to negotiate your salary and benefits effectively.',
+      type: 'Video',
+      author: 'Salary Negotiation Expert',
+      rating: 4.7,
+      duration: '20:15',
+      format: 'YouTube',
+      link: 'https://www.youtube.com/watch?v=8jPQjjsBbIc',
+      tags: ['Salary Negotiation', 'Compensation', 'Career Advancement']
+    },
+    {
+      title: 'Building Your Personal Brand',
+      category: 'videos',
+      description: 'Create a strong personal brand that sets you apart in your career.',
+      type: 'Video',
+      author: 'Personal Branding Coach',
+      rating: 4.5,
+      duration: '16:20',
+      format: 'YouTube',
+      link: 'https://www.youtube.com/watch?v=JtJQh00sj00',
+      tags: ['Personal Branding', 'Professional Image', 'Career Development']
     },
     // Tools
     {
@@ -104,7 +164,7 @@ const Resources = () => {
       rating: 4.6,
       duration: '10 min',
       format: 'Web App',
-      link: '#',
+      link: '/assessment',
       tags: ['Skills Assessment', 'Self-Evaluation', 'Development']
     },
     {
@@ -116,7 +176,7 @@ const Resources = () => {
       rating: 4.7,
       duration: '15 min',
       format: 'Web App',
-      link: '#',
+      link: '/explorer',
       tags: ['Career Path', 'Visualization', 'Planning']
     },
     {
@@ -128,7 +188,7 @@ const Resources = () => {
       rating: 4.5,
       duration: '20 min',
       format: 'Web App',
-      link: '#',
+      link: '/resources',
       tags: ['Learning Path', 'Goal Setting', 'Development']
     },
     // Courses
@@ -141,7 +201,7 @@ const Resources = () => {
       rating: 4.8,
       duration: '8 weeks',
       format: 'Online',
-      link: '#',
+      link: 'https://www.coursera.org/learn/career-development',
       tags: ['Career Development', 'Planning', 'Fundamentals']
     },
     {
@@ -153,7 +213,7 @@ const Resources = () => {
       rating: 4.6,
       duration: '6 weeks',
       format: 'Online',
-      link: '#',
+      link: 'https://www.edx.org/course/digital-skills-modern-careers',
       tags: ['Digital Skills', 'Technology', 'Modern Workplace']
     },
     {
@@ -165,8 +225,32 @@ const Resources = () => {
       rating: 4.7,
       duration: '10 weeks',
       format: 'Online',
-      link: '#',
+      link: 'https://www.udemy.com/course/leadership-management-skills',
       tags: ['Leadership', 'Management', 'Career Growth']
+    },
+    {
+      title: 'Data Science for Career Growth',
+      category: 'courses',
+      description: 'Learn data science skills to advance your career.',
+      type: 'Online Course',
+      author: 'Data Science Academy',
+      rating: 4.8,
+      duration: '12 weeks',
+      format: 'Online',
+      link: 'https://www.coursera.org/specializations/data-science',
+      tags: ['Data Science', 'Analytics', 'Career Advancement']
+    },
+    {
+      title: 'Project Management Professional',
+      category: 'courses',
+      description: 'Prepare for PMP certification and advance your project management career.',
+      type: 'Online Course',
+      author: 'Project Management Institute',
+      rating: 4.7,
+      duration: '16 weeks',
+      format: 'Online',
+      link: 'https://www.pmi.org/certifications/project-management-pmp',
+      tags: ['Project Management', 'PMP', 'Certification']
     }
   ];
 
@@ -331,7 +415,17 @@ const Resources = () => {
                   ))}
                 </div>
               </div>
-              <button className="btn" style={{ padding: '0.5rem 1rem', fontSize: '0.875rem' }}>
+              <button 
+                className="btn" 
+                style={{ padding: '0.5rem 1rem', fontSize: '0.875rem' }}
+                onClick={() => {
+                  if (resource.format === 'Web App') {
+                    window.location.href = resource.link;
+                  } else {
+                    window.open(resource.link, '_blank');
+                  }
+                }}
+              >
                 {getFormatIcon(resource.format)}
                 <span style={{ marginLeft: '0.5rem' }}>
                   {resource.format === 'PDF' ? 'Download' : 
