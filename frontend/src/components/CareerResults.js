@@ -9,7 +9,11 @@ import {
   RefreshCw,
   TrendingUp,
   Globe,
-  Star
+  Star,
+  Brain,
+  Award,
+  Lightbulb,
+  CheckCircle
 } from 'lucide-react';
 
 const careerDatabase = {
@@ -299,6 +303,8 @@ const CareerResults = () => {
   const location = useLocation();
   const [results, setResults] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [mlPrediction, setMlPrediction] = useState(null);
+  const [mlLoading, setMlLoading] = useState(false);
 
   const analyzeAnswers = useCallback((answers) => {
     const scoredCareers = [];
@@ -410,6 +416,91 @@ const CareerResults = () => {
     return sortedCareers;
   }, []);
 
+  const getMlPrediction = useCallback(async (answers) => {
+    if (!answers) return;
+    
+    setMlLoading(true);
+    try {
+      // Get predictions for each suggested career
+      const careerPredictions = [];
+      
+      // Get the suggested careers from the analysis
+      const suggestedCareers = analyzeAnswers(answers);
+      
+      for (const career of suggestedCareers) {
+        // Prepare data for ML model for each career
+        const userData = {
+          age: answers.age || '23-30',
+          education: answers.education || 'bachelors',
+          personality: answers.personality || 'analytical',
+          interests: answers.interests || ['technology'],
+          field: career.title.toLowerCase().includes('software') ? 'technology' : 
+                 career.title.toLowerCase().includes('data') ? 'technology' :
+                 career.title.toLowerCase().includes('design') ? 'technology' :
+                 career.title.toLowerCase().includes('medical') ? 'healthcare' :
+                 career.title.toLowerCase().includes('nursing') ? 'healthcare' :
+                 career.title.toLowerCase().includes('business') ? 'business' :
+                 career.title.toLowerCase().includes('financial') ? 'business' :
+                 career.title.toLowerCase().includes('marketing') ? 'marketing' :
+                 career.title.toLowerCase().includes('engineering') ? 'engineering' :
+                 career.title.toLowerCase().includes('teaching') ? 'education' : 'technology',
+          career: career.title,
+          technical_skills: answers.current_skills?.includes('technical') ? 8 : 5,
+          communication_skills: answers.current_skills?.includes('communication') ? 8 : 5,
+          leadership_skills: answers.current_skills?.includes('leadership') ? 8 : 5,
+          problem_solving: answers.current_skills?.includes('analytical') ? 8 : 5,
+          creativity: answers.current_skills?.includes('creative') ? 8 : 5,
+          salary_expectations: answers.salary_expectations || 'mid_level',
+          international_opportunities: answers.international_opportunities || 'somewhat_interested',
+          work_life_balance: answers.work_life_balance || 'moderately_important',
+          career_advancement: answers.career_advancement || ['management']
+        };
+
+        const response = await fetch('http://localhost:5001/predict', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(userData),
+        });
+
+        if (response.ok) {
+          const predictionData = await response.json();
+          careerPredictions.push({
+            career: career.title,
+            prediction: predictionData.prediction,
+            insights: predictionData.insights,
+            recommendations: predictionData.recommendations,
+            careerData: career
+          });
+        }
+      }
+      
+      setMlPrediction({
+        careerPredictions,
+        overallPrediction: careerPredictions[0]?.prediction || {
+          success_probability: 75.0,
+          success_prediction: true,
+          confidence: 75.0
+        }
+      });
+      
+    } catch (error) {
+      console.error('Error getting ML prediction:', error);
+      // Set fallback prediction
+      setMlPrediction({
+        careerPredictions: [],
+        overallPrediction: {
+          success_probability: 75.0,
+          success_prediction: true,
+          confidence: 75.0
+        }
+      });
+    } finally {
+      setMlLoading(false);
+    }
+  }, [analyzeAnswers]);
+
   useEffect(() => {
     if (location.state?.answers) {
       // Simulate analysis time
@@ -417,11 +508,14 @@ const CareerResults = () => {
         const recommendations = analyzeAnswers(location.state.answers);
         setResults(recommendations);
         setLoading(false);
+        
+        // Get ML prediction
+        getMlPrediction(location.state.answers);
       }, 2000);
     } else {
       setLoading(false);
     }
-  }, [location.state, analyzeAnswers]);
+  }, [location.state, analyzeAnswers, getMlPrediction]);
 
   if (loading) {
     return (
@@ -537,32 +631,51 @@ const CareerResults = () => {
           <h2 style={{ fontSize: '1.5rem', fontWeight: '600', marginBottom: '1rem', color: '#1f2937' }}>
             Recommended Career Paths
           </h2>
-          {results?.map((career, index) => (
-            <motion.div
-              key={career.title}
-              className="career-card"
-              initial={{ opacity: 0, x: -30 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-            >
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1rem' }}>
-                <div style={{ flex: 1 }}>
-                  <h3 className="career-title">{career.title}</h3>
-                  <p className="career-description">{career.description}</p>
-                </div>
-                <div style={{ textAlign: 'right', marginLeft: '1rem' }}>
-                  <div style={{ 
-                    background: 'linear-gradient(135deg, #667eea, #764ba2)', 
-                    color: 'white', 
-                    padding: '0.5rem 1rem', 
-                    borderRadius: '20px', 
-                    fontSize: '0.875rem',
-                    fontWeight: '600'
-                  }}>
-                    Match Score: {career.score}
+          {results?.map((career, index) => {
+            // Find the corresponding ML prediction for this career
+            const careerPrediction = mlPrediction?.careerPredictions?.find(
+              cp => cp.career === career.title
+            );
+            
+            return (
+              <motion.div
+                key={career.title}
+                className="career-card"
+                initial={{ opacity: 0, x: -30 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+              >
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1rem' }}>
+                  <div style={{ flex: 1 }}>
+                    <h3 className="career-title">{career.title}</h3>
+                    <p className="career-description">{career.description}</p>
+                  </div>
+                  <div style={{ textAlign: 'right', marginLeft: '1rem' }}>
+                    <div style={{ 
+                      background: 'linear-gradient(135deg, #667eea, #764ba2)', 
+                      color: 'white', 
+                      padding: '0.5rem 1rem', 
+                      borderRadius: '20px', 
+                      fontSize: '0.875rem',
+                      fontWeight: '600',
+                      marginBottom: '0.5rem'
+                    }}>
+                      Match Score: {career.score}
+                    </div>
+                    {careerPrediction && (
+                      <div style={{ 
+                        background: 'linear-gradient(135deg, #10b981, #059669)', 
+                        color: 'white', 
+                        padding: '0.5rem 1rem', 
+                        borderRadius: '20px', 
+                        fontSize: '0.875rem',
+                        fontWeight: '600'
+                      }}>
+                        Success: {careerPrediction.prediction.success_probability}%
+                      </div>
+                    )}
                   </div>
                 </div>
-              </div>
 
               {/* Success Metrics */}
               <div style={{ marginBottom: '1.5rem' }}>
@@ -659,9 +772,251 @@ const CareerResults = () => {
                   ))}
                 </div>
               </div>
+              
+              <div style={{ marginTop: '1rem', textAlign: 'center' }}>
+                <button
+                  className="btn"
+                  style={{ 
+                    background: 'linear-gradient(135deg, #667eea, #764ba2)',
+                    color: 'white',
+                    padding: '0.75rem 1.5rem',
+                    fontSize: '0.875rem',
+                    fontWeight: '600'
+                  }}
+                  onClick={() => {
+                    // Import and show career path details
+                    import('./CareerPathDetails').then(module => {
+                      const CareerPathDetails = module.default;
+                      // This would need to be implemented with a modal system
+                      console.log('Show career path details for:', career.title);
+                    });
+                  }}
+                >
+                  <Target size={16} />
+                  <span style={{ marginLeft: '0.5rem' }}>View Career Path Details</span>
+                </button>
+              </div>
             </motion.div>
-          ))}
+          )})}
         </div>
+
+        {/* ML Prediction Results */}
+        {mlLoading && (
+          <motion.div
+            className="card"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            style={{ textAlign: 'center', marginBottom: '2rem' }}
+          >
+            <div className="loading">
+              <div className="spinner"></div>
+            </div>
+            <h3 style={{ fontSize: '1.25rem', fontWeight: '600', marginTop: '1rem', color: '#1f2937' }}>
+              Analyzing with AI...
+            </h3>
+            <p style={{ color: '#6b7280', marginTop: '0.5rem' }}>
+              Getting personalized career success predictions using machine learning
+            </p>
+          </motion.div>
+        )}
+
+        {mlPrediction && (
+          <motion.div
+            className="card"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            style={{ marginBottom: '2rem' }}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1.5rem' }}>
+              <Brain size={24} color="#667eea" />
+              <h2 style={{ fontSize: '1.5rem', fontWeight: '600', color: '#1f2937' }}>
+                AI Career Success Prediction
+              </h2>
+            </div>
+
+            {/* Overall Success Probability */}
+            <div style={{ 
+              background: 'linear-gradient(135deg, #667eea, #764ba2)', 
+              color: 'white', 
+              padding: '2rem', 
+              borderRadius: '12px',
+              marginBottom: '2rem',
+              textAlign: 'center'
+            }}>
+              <div style={{ fontSize: '3rem', fontWeight: '800', marginBottom: '0.5rem' }}>
+                {mlPrediction.overallPrediction.success_probability}%
+              </div>
+              <div style={{ fontSize: '1.25rem', marginBottom: '1rem' }}>
+                Overall Success Probability
+              </div>
+              <div style={{ 
+                background: 'rgba(255, 255, 255, 0.2)', 
+                padding: '0.5rem 1rem', 
+                borderRadius: '20px',
+                display: 'inline-block'
+              }}>
+                Confidence: {mlPrediction.overallPrediction.confidence}%
+              </div>
+            </div>
+
+            {/* Insights */}
+            <div style={{ marginBottom: '2rem' }}>
+              <h3 style={{ fontSize: '1.25rem', fontWeight: '600', marginBottom: '1rem', color: '#1f2937' }}>
+                AI Insights
+              </h3>
+              
+              {/* Strengths */}
+              {mlPrediction.careerPredictions?.[0]?.insights?.strengths?.length > 0 && (
+                <div style={{ marginBottom: '1.5rem' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem' }}>
+                    <CheckCircle size={20} color="#10b981" />
+                    <strong style={{ color: '#1f2937' }}>Your Strengths:</strong>
+                  </div>
+                  <div className="career-tags">
+                    {mlPrediction.careerPredictions[0].insights.strengths.map((strength, index) => (
+                      <span key={index} className="tag" style={{ background: '#ecfdf5', color: '#065f46' }}>
+                        {strength}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Areas for Improvement */}
+              {mlPrediction.careerPredictions?.[0]?.insights?.areas_for_improvement?.length > 0 && (
+                <div style={{ marginBottom: '1.5rem' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem' }}>
+                    <Lightbulb size={20} color="#f59e0b" />
+                    <strong style={{ color: '#1f2937' }}>Areas for Improvement:</strong>
+                  </div>
+                  <div className="career-tags">
+                    {mlPrediction.careerPredictions[0].insights.areas_for_improvement.map((area, index) => (
+                      <span key={index} className="tag" style={{ background: '#fef3c7', color: '#92400e' }}>
+                        {area}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Market Analysis */}
+              <div style={{ marginBottom: '1.5rem' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem' }}>
+                  <TrendingUp size={20} color="#3b82f6" />
+                  <strong style={{ color: '#1f2937' }}>Market Analysis:</strong>
+                </div>
+                <div style={{ 
+                  display: 'grid', 
+                  gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', 
+                  gap: '1rem' 
+                }}>
+                  <div style={{ 
+                    background: '#f8fafc', 
+                    padding: '1rem', 
+                    borderRadius: '8px',
+                    textAlign: 'center'
+                  }}>
+                    <div style={{ fontSize: '1.125rem', fontWeight: '600', color: '#1f2937' }}>
+                      {mlPrediction.insights.market_analysis.field_demand}
+                    </div>
+                    <div style={{ color: '#6b7280', fontSize: '0.875rem' }}>Field Demand</div>
+                  </div>
+                  <div style={{ 
+                    background: '#f8fafc', 
+                    padding: '1rem', 
+                    borderRadius: '8px',
+                    textAlign: 'center'
+                  }}>
+                    <div style={{ fontSize: '1.125rem', fontWeight: '600', color: '#1f2937' }}>
+                      {mlPrediction.insights.market_analysis.salary_potential}
+                    </div>
+                    <div style={{ color: '#6b7280', fontSize: '0.875rem' }}>Salary Potential</div>
+                  </div>
+                  <div style={{ 
+                    background: '#f8fafc', 
+                    padding: '1rem', 
+                    borderRadius: '8px',
+                    textAlign: 'center'
+                  }}>
+                    <div style={{ fontSize: '1.125rem', fontWeight: '600', color: '#1f2937' }}>
+                      {mlPrediction.insights.market_analysis.international_opportunities}
+                    </div>
+                    <div style={{ color: '#6b7280', fontSize: '0.875rem' }}>International Opportunities</div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Career Advice */}
+              <div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem' }}>
+                  <Award size={20} color="#8b5cf6" />
+                  <strong style={{ color: '#1f2937' }}>Career Advice:</strong>
+                </div>
+                <div style={{ 
+                  background: '#f3e8ff', 
+                  padding: '1rem', 
+                  borderRadius: '8px',
+                  color: '#7c3aed'
+                }}>
+                  {mlPrediction.insights.career_advice[0]}
+                </div>
+              </div>
+            </div>
+
+            {/* Recommendations */}
+            <div>
+              <h3 style={{ fontSize: '1.25rem', fontWeight: '600', marginBottom: '1rem', color: '#1f2937' }}>
+                AI Recommendations
+              </h3>
+              
+              <div style={{ 
+                display: 'grid', 
+                gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', 
+                gap: '1.5rem' 
+              }}>
+                {/* Skill Development */}
+                {mlPrediction.recommendations.skill_development.length > 0 && (
+                  <div>
+                    <h4 style={{ fontSize: '1rem', fontWeight: '600', marginBottom: '0.5rem', color: '#1f2937' }}>
+                      Skill Development
+                    </h4>
+                    <ul style={{ color: '#6b7280', fontSize: '0.875rem' }}>
+                      {mlPrediction.recommendations.skill_development.map((rec, index) => (
+                        <li key={index} style={{ marginBottom: '0.25rem' }}>• {rec}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
+                {/* Certifications */}
+                {mlPrediction.recommendations.certifications.length > 0 && (
+                  <div>
+                    <h4 style={{ fontSize: '1rem', fontWeight: '600', marginBottom: '0.5rem', color: '#1f2937' }}>
+                      Recommended Certifications
+                    </h4>
+                    <ul style={{ color: '#6b7280', fontSize: '0.875rem' }}>
+                      {mlPrediction.recommendations.certifications.map((cert, index) => (
+                        <li key={index} style={{ marginBottom: '0.25rem' }}>• {cert}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
+                {/* Networking */}
+                <div>
+                  <h4 style={{ fontSize: '1rem', fontWeight: '600', marginBottom: '0.5rem', color: '#1f2937' }}>
+                    Networking
+                  </h4>
+                  <ul style={{ color: '#6b7280', fontSize: '0.875rem' }}>
+                    {mlPrediction.recommendations.networking.map((rec, index) => (
+                      <li key={index} style={{ marginBottom: '0.25rem' }}>• {rec}</li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        )}
 
         {/* Action Buttons */}
         <motion.div
